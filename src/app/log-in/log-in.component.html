@@ -13,22 +13,48 @@
           <div class="form-subtitle mt-1">Welcome Back! Please Login To Your Account.</div>
         </div>
 
-        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        
+        <form (ngSubmit)="onLogin()" #loginForm="ngForm" novalidate>
           <!-- Email -->
           <div class="form-group">
             <label for="email" class="form-label">Username</label>
-            <input type="email" class="form-control" id="email" name="email" [(ngModel)]="email" required />
-            <div class="error-message" *ngIf="emailInvalid">Invalid Email</div>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              required
+              [(ngModel)]="email"
+              #emailRef="ngModel"
+            />
+            <div class="error-message" *ngIf="emailRef.invalid && emailRef.touched">Invalid Email</div>
           </div>
 
           <!-- Password -->
           <div class="form-group position-relative">
             <label for="password" class="form-label">Password</label>
-            <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password" [(ngModel)]="password" required />
-            <span class="position-absolute top-50 end-0 translate-middle-y pe-3" style="cursor:pointer;" (click)="togglePassword()">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              id="password"
+              name="password"
+              required
+              [(ngModel)]="password"
+              #passwordRef="ngModel"
+            />
+            <span
+              class="position-absolute top-50 end-0 translate-middle-y pe-3"
+              style="cursor: pointer"
+              (click)="togglePassword()"
+            >
               {{ showPassword ? '🙈' : '👁️' }}
             </span>
-            <div class="error-message" *ngIf="passwordInvalid">Password required</div>
+            <div class="error-message" *ngIf="passwordRef.invalid && passwordRef.touched">Password required</div>
+          </div>
+
+          <!-- API Error -->
+          <div class="error-message mb-2" *ngIf="errorMessage">
+            {{ errorMessage }}
           </div>
 
           <!-- Remember + Forgot -->
