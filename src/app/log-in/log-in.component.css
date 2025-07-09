@@ -1,6 +1,8 @@
 body {
   background: #f8f9fa;
   font-family: 'Proxima Nova', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .login-container {
@@ -8,7 +10,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  padding: 40px 20px;
 }
 
 .left-image {
@@ -17,25 +19,32 @@ body {
 }
 
 .illustration-img {
-  max-height: 500px;
-  margin-right: -60px;
+  max-height: 300px;
+  width: 100%;
+  object-fit: contain;
+}
+
+@media (min-width: 768px) {
+  .illustration-img {
+    max-height: 500px;
+    margin-right: -60px;
+  }
 }
 
 .form-container {
   max-width: 600px;
-  max-height: 500px;
-  width: 100%;
   background: none;
-  padding: 40px 70px;
+  padding: 40px 30px;
   border-radius: 8px;
   z-index: 1;
   position: relative;
+  width: 100%;
 }
 
 .form-title {
-  font-size: 40px;
+  font-size: 36px;
   font-weight: 600;
-  color: #000000;
+  color: #000;
 }
 
 .form-subtitle {
@@ -98,3 +107,4 @@ body {
 .form-group {
   margin-bottom: 20px;
 }
+  

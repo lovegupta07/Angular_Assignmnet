@@ -41,7 +41,8 @@ export class LoginComponent implements OnInit {
       const clientId = uuidv4();
       this.authService.login(this.email, this.password, clientId).subscribe({
         next: () => {
-          this.router.navigate(['/dashboard']);
+          
+          this.router.navigateByUrl('/dashboard');
         },
         error: (err) => {
           this.errorMessage = err?.error?.message || 'Login failed';
