@@ -6,13 +6,19 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './log-in/log-in.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './users/users.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { InviteUserComponent } from './invite-user/invite-user.component';
+import { FilterComponent } from './filter/filter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    DashboardComponent,
+    UsersComponent,
+    UserDetailsComponent,
+    InviteUserComponent,
+    FilterComponent,
   ],
   imports: [
     ReactiveFormsModule,

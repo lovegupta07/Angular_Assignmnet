@@ -1,0 +1,48 @@
+<div class="user-card">
+    <h3 class="header"   style="border-bottom: 1px solid #ccc; padding: 10px;">Update User Details</h3>
+
+    <div class="content">
+        <!-- Left: Profile Photo -->
+        <div class="left">
+            <div class="avatar-wrapper">
+                <img src="../../../assets/images/Profile.png" class="avatar" />
+                <div class="overlay">
+                    <span class="plus-icon">+</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <input type="file" #fileInput hidden (change)="onFileChange($event)" />
+                <button type="button" class="upload-btn" (click)="triggerFileUpload()">⬆ Upload</button>
+                <button type="button" class="remove-btn" (click)="removeImage()">🗑 Remove</button>
+            </div>
+          <hr><br>
+
+
+            <label>Status</label>
+            <div class="status-options">
+                <label><input type="radio" value="Active" formControlName="status" /> Active</label>
+                <label><input type="radio" value="Inactive" formControlName="status" /> Inactive</label>
+            </div>
+        </div>
+
+        <!-- Right: Form Fields -->
+        <form [formGroup]="userForm" class="right" (ngSubmit)="onSave()">
+            <label>Name</label>
+            <input type="text" formControlName="name" />
+
+            <label>Phone No.</label>
+            <input type="text" formControlName="phone" />
+
+            <label>Email</label>
+            <input type="email" formControlName="email" />
+
+            <label>Role</label>
+            <input type="text" formControlName="role" />
+
+            <div class="save-container">
+                <button type="submit" class="save-btn">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
