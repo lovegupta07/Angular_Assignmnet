@@ -46,7 +46,7 @@
               style="cursor: pointer"
               (click)="togglePassword()"
             >
-              {{ showPassword ? '🙈' : '👁️' }}
+              {{ showPassword ? 'fas fa-eye-slash' : 'fas fa-eye' }}
             </span>
             <div class="error-message" *ngIf="passwordRef.invalid && passwordRef.touched">Password required</div>
           </div>

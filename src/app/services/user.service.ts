@@ -1,42 +1,99 @@
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getUsers(search: string, pageSize: number, page: number, sortField: string, sortOrder: string): Observable<any> {
-  const params = {
-    search,
-    pageSize: pageSize.toString(),
-    page: page.toString(),
-    sortField,
-    sortOrder
-  };
-  return this.http.get(`${this.baseUrl}/users`, { params });
-}
+  getUsers(): Observable<any> {
+    const url = `${environment.SERVER_URL}/user/query`;
 
-
-  addUser(userData: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users`, userData);
+    return this.http.post<any>(url, {}, this.getHeaders());
   }
 
-  updateUser(userId: string, userData: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/users/${userId}`, userData);
+
+  searchUsers(searchText: string = '', sortField: string = 'name', sortOrder: string = 'ASC'): Observable<any> {
+
+    const url = `${environment.SERVER_URL}/user/query`;
+    const body: any = {
+      sorting_details: {
+        sort_order: sortOrder,
+        sort_by: sortField
+      }
+    };
+
+    if (searchText) {
+      body.search_params = {
+        search_text: searchText,
+        search_columns: ["name", "email"]
+      };
+    }
+
+    return this.http.post<any>(url, body, this.getHeaders());
   }
+
+
+  inviteUser(name: string, email: string, role: string): Observable<any> {
+    const url = `${environment.SERVER_URL}/organisation/6867d4a4eae17400268e9c55/user`;
+    console.log({ name, email, role });
+    return this.http.post<any>(url, { name, email, role }, this.getHeaders());
+  }
+
+
+  updateUserProfile(Name: string, mobileNo: number): Observable<any> {
+    const body = {
+      "name": Name,
+    }
+    const url = `${environment.SERVER_URL}/user/profile`;
+    return this.http.put<any>(url, body, this.getHeaders());
+  }
+
+
+  // Update Paticular User
+  updateUser(userId: string, payload: any) {
+    return this.http.patch(`${environment.SERVER_URL}/user/${userId}`, payload, this.getHeaders());
+  }
+
 
   deleteUser(userId: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/users/${userId}`);
+    console.log('User id is ', userId);
+    const url = `${environment.SERVER_URL}/user/${userId}`;
+    return this.http.delete<any>(url, this.getHeaders());
   }
 
-  uploadProfileImage(userId: string, formData: FormData): Observable<any> {
-    return this.http.post(`${this.baseUrl}/users/${userId}/upload`, formData);
+
+  getUserImage(userId: string): Observable<any> {
+    const url = `${environment.SERVER_URL}/user/profileimage/query`;
+    return this.http.post(url, { user_id: [userId] }, this.getHeaders());
+  }
+
+
+  forgotPassword(email: string) {
+    const url = `${environment.SERVER_URL}/user/forgotpassword`;
+    return this.http.post(url, { email, "forgot_2fa": false }, this.getHeaders());
+  }
+
+
+  changePassword(newpassword: string, oldpassword: string) {
+    const url = `${environment.SERVER_URL}/user/changepassword`;
+    return this.http.post(url, { newpassword, oldpassword }, this.getHeaders());
+  }
+
+
+  // Headers: For API authentication (Authorization)
+  private getHeaders() {
+    const token = localStorage.getItem('x-auth-token') || '';
+
+    const headers = new HttpHeaders({
+      'Authorization': token || '',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    });
+    return { headers };
   }
 }

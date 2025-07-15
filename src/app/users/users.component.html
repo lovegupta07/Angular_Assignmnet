@@ -13,7 +13,7 @@
     <!-- Profile Info -->
     <!-- Always show profile box -->
     <div class="profile-box mt-3">
-      <img src="assets/profile.png" alt="profile" (click)="userDetails=true" style="cursor: pointer;"
+      <img src="../assets/profile.png" alt="profile" (click)="userDetails=true" style="cursor: pointer;"
         class="profile-img" />
 
       <!-- Only hide this part when collapsed -->
@@ -37,13 +37,13 @@
       <li class="nav-item">
         <div class="sidebar-item d-flex align-items-center">
           <i class="bi bi-house-door-fill"></i>
-          <span *ngIf="!collapsed"><i class="fa-solid fa-house"></i></span>
+          <span *ngIf="!collapsed">Home</span>
         </div>
       </li>
       <li class="nav-item">
         <div class="sidebar-item d-flex align-items-center">
           <i class="bi bi-plus-circle"></i>
-          <span *ngIf="!collapsed" (click)="openAddInviteModal()"><i class="fa-regular fa-square-plus"></i></span>
+          <span *ngIf="!collapsed" (click)="openAddInviteModal()">Add User</span>
         </div>
       </li>
       <li class="nav-item">
@@ -53,24 +53,46 @@
         </div>
       </li>
     </ul>
+
+    <!-- Settings Icon -->
+    <div class="settings-icon-wrapper" (click)="toggleSettingsDropdown()">
+      <i class="bi bi-gear-fill"></i>
+    </div>
+    <div *ngIf="settingsDropdownVisible" class="settings-dropdown-box" (click)="$event.stopPropagation()">
+      <div class="dropdown-item" (click)="openChangePasswordModal()">Change Password</div>
+      <div class="dropdown-item" (click)="logout()">Logout</div>
+    </div>
+
+  </div>
+
+  <!-- Change Password -->
+  <div class="changePassword-backdrop" *ngIf="changePasswordModal" (click)="closeChangePasswordModal()">
+    <div class="changePassword-content" (click)="$event.stopPropagation()">
+      <app-change-password></app-change-password>
+    </div>
   </div>
 
   <!-- Add User Modal (Invite User) -->
   <div class="invite-user-backdrop" *ngIf="addInviteModal" (click)="closeAddInviteModal()">
     <div class="invite-user-content" (click)="$event.stopPropagation()">
-      <app-invite-user></app-invite-user>
+      <app-invite-user (userAdded)="onUserAdded()"></app-invite-user>
     </div>
   </div>
+
+
+
 
 
   <!-- Main Content inside wrapper -->
   <div class="content flex-grow-1 p-2">
     <!-- Topbar -->
     <div class="d-flex align-items-center mb-3 flex-wrap gap-2">
-      <div class="search-bar">
-        <input type="text" placeholder="Search...">
-        <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+      <div class="d-flex position-relative">
+        <input type="text" class="form-control w-auto" placeholder="Search.." (input)="searchUsers()"
+          [(ngModel)]="searchText" />
+        <i class="bi bi-search position-absolute top-50 end-0 p-2 translate-middle-y"></i>
       </div>
+
 
       <!-- Sort Dropdown -->
       <div class="dropdown">
@@ -89,13 +111,13 @@
         </ul>
       </div>
 
-
       <!-- Filter Modal  -->
       <div class="filter-backdrop" *ngIf="filterModal" (click)="closeFilterModal()">
         <div class="filter-content" (click)="$event.stopPropagation()">
           <app-filter (close)="closeFilterModal()"></app-filter>
         </div>
       </div>
+
 
 
       <div class="ms-auto d-flex gap-2">
@@ -123,14 +145,13 @@
         <tbody>
           <tr *ngFor="let user of users">
             <td>
-              <!-- <img src="https://i.pravatar.cc/30" class="rounded-circle me-2" /> -->
-              {{ user.name }}
+              {{userImage}} {{ user.name }}
             </td>
             <td>{{ user.email }}</td>
             <td>{{ user.role }}</td>
             <td>{{ user.mobile?.mobile_number}}</td>
             <!-- <td>{{ user.create_date | date:'dd/MM/yyyy, h:mm a' }}</td> -->
-            <td>{{ user.create_date | date:'dd/MM/yyyy'}}</td>
+            <td>{{ user.create_date | date}}</td>
             <td>{{ user.status }}</td>
             <td>
               <div class="dropdown">
@@ -138,8 +159,10 @@
                   <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item-dot" href="#"><i class="bi bi-trash me-2"></i>Delete</a></li>
-                  <li><a class="dropdown-item-dot" href="#"><i class="bi bi-pencil me-2"></i>Edit</a></li>
+                  <li><a class="dropdown-item-dot" (click)="openDeleteUserModal(user._id)"><i
+                        class="bi bi-trash me-2"></i>Delete</a></li>
+                  <li><a class="dropdown-item-dot" role="button" (click)="openEditUserModal(user)"><i
+                        class="bi bi-pencil me-2"></i>Edit</a></li>
                 </ul>
               </div>
             </td>
@@ -148,5 +171,16 @@
       </table>
     </div>
   </div>
+  <!-- Edit User Modal -->
+  <div class="invite-user-backdrop" *ngIf="editUser" (click)="closeEditUserModal()">
+    <div class="invite-user-content" (click)="$event.stopPropagation()">
+      <app-edit-user [user]="editUser" (userUpdated)="onUserUpdated()"></app-edit-user>
+    </div>
+  </div>
 
-</div>
+  <!-- Delete User Modal -->
+  <div class="delete-user-backdrop" *ngIf="deleteUserId" (click)="closeDeleteUserModal()">
+    <div class="delete-user-content" (click)="$event.stopPropagation()">
+      <app-delete-user [deleteUserId]="deleteUserId" (userDeleted)="onUserDeleted()"></app-delete-user>
+    </div>
+  </div>

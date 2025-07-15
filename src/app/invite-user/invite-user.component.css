@@ -19,6 +19,7 @@
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
+  color: black;
 }
 
 .form-control {
@@ -38,30 +39,22 @@
 .form-actions {
   margin-top: 20px;
   display: flex;
-  /* align-items:flex-end; */
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .btn {
-  /* padding:; */
+  padding: 10px 20px;
   border-radius: 5px;
-  /* font-weight: bold; */
+  font-weight: bold;
   border: none;
   cursor: pointer;
 }
 
 .btn-primary, .btn-danger {
-  height: 40px;
   background-color: #FF544C;
-  margin-bottom: 4px;
-  color: white; 
-  /* margin-left: 90px; */
-  /* margin-inline-start: auto; */
-  
+  color: white;
 }
 
 .btn-primary:hover, .btn-danger:hover {
-  height: 40px;
-  background-color: #FF544C;
-  margin-bottom: 4px;
+  background-color: #d32f2f;
 }

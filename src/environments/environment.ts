@@ -1,9 +1,5 @@
-// ✅ FILE: src/environments/environment.ts
-
 export const environment = {
-  production: false,
-  apiUrl: 'https://your-api-url.com' // 🔁 Replace with your real backend URL
+  production: false,  
+  SERVER_URL :'https://dev1api.pronnel.com'
+   
 };
-
-
-// ✅ FILE: src/app/services/user.service.ts

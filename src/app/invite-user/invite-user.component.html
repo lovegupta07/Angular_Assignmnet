@@ -5,22 +5,22 @@
   <form>
     <div class="form-group">
       <label for="name">Name</label>
-      <input id="name" type="text" class="form-control" placeholder="Enter Name" />
+      <input id="name" name="name" type="text" class="form-control" placeholder="Enter Name" [(ngModel)]="name" required autofocus/>
     </div>
     <div class="form-group">
       <label for="email">Email</label>
-      <input id="email" type="email" class="form-control" placeholder="Enter Email" />
+      <input id="email" name="email" type="email" class="form-control" placeholder="Enter Email" [(ngModel)]="email"required/>
     </div>
     <div class="form-group">
       <div class="checkbox-container">
         <label class="usertype">Usertype</label>
-        <input type="checkbox" id="admin" /> <label for="admin">Admin</label>
-        <input type="checkbox" id="user" /> <label for="user">User</label>
+        <input type="radio" name="usertype" value="ADMIN" [(ngModel)]="usertype" required/> Admin
+        <input type="radio" name="usertype" value="USER" [(ngModel)]="usertype"/>User 
       </div>
     </div>
     <div class="form-actions">
       <button type="button" class="btn btn-primary">Invite And Next</button>
-      <button type="button" class="btn btn-danger">Invite User</button>
+      <button type="button" class="btn btn-danger" (click)="inviteUser()">Invite User</button>
     </div>
   </form>
 </div>

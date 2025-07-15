@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './log-in/log-in.component';
 import { AuthGuard } from './auth.guard';
 import { UsersComponent } from './users/users.component';
+import { FilterComponent } from './filter/filter.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,8 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'users', pathMatch: 'full' },
       { path: 'users', component: UsersComponent },
-      // { path: 'profile', component: ProfileComponent } // optional, for later
+      { path: 'welcome', canActivate: [AuthGuard], component: UsersComponent },
+      { path: 'aa', component: FilterComponent }
     ]
   }
 ];

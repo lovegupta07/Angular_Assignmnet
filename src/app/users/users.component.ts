@@ -11,24 +11,31 @@ import { environment } from 'src/environments/environment';
 export class UsersComponent {
   userName: string = '';
   userRole: string = '';
+  userImage: string = '';
   collapsed: boolean = false;
   userDetails: boolean = false;
   addInviteModal: boolean = false;
   filterModal: boolean = false;
+  editUser: any | null = null;
+  deleteUserId: string | null = null;
+  settingsDropdownVisible: boolean = false;
+  changePasswordModal: boolean = false;
 
   users: any[] = [];
   searchText: string = '';
-  pageSize: number = 10;
-  currentPage: number = 1;
   sortOrder: string = 'ASC';  // Default
   sortField: string = 'name';
   totalUsers: number = 0;
 
+
   constructor(private userService: UserService, private router: Router) {
+
     const user = JSON.parse(localStorage.getItem('user_data') || '{}');
     this.userName = user.name || '';
     this.userRole = user.role || '';
+
   };
+
 
   ngOnInit(): void {
     this.loadUsers();
@@ -37,10 +44,9 @@ export class UsersComponent {
 
   // Load users from the API
   loadUsers(): void {
-    this.userService.getUsers(this.searchText, this.pageSize, this.currentPage, this.sortField, this.sortOrder).subscribe({
+    this.userService.getUsers().subscribe({
       next: (res) => {
         this.users = res?.responseData || [];
-        console.log(this.users);
         this.totalUsers = res?.pagination_details?.total_records || 0;
       },
       error: (error) => {
@@ -49,29 +55,49 @@ export class UsersComponent {
     });
   }
 
-  // Search functionality for filtering users
-  onSearch(): void {
-    this.loadUsers(); 
+  // Search users from the API
+  searchUsers(): void {
+    this.userService.searchUsers(this.searchText, this.sortField, this.sortOrder).subscribe({
+      next: (res:any) => {
+        this.users = res?.responseData || [];
+        this.totalUsers = res?.pagination_details?.total_records || 0;
+      },
+      error: (error:any) => {
+        console.log("Error Fetching Users: ", error);
+      }
+    });
   }
 
-  // Redirect to Edit User screen
-  editUser(userId: string): void {
-    this.router.navigate(['/edit-user', userId]);  // Use Angular router to navigate
+  // Search functionality for filtering users
+  onSearch(): void {
+    this.searchUsers();
   }
 
   // Delete a user
   deleteUser(userId: string): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(userId).subscribe(
-        (response) => {
-          this.loadUsers();  // Refresh the user list after deletion
-          console.log('User deleted successfully');
-        },
-        (error) => {
-          console.error('Error deleting user:', error);
-        }
-      );
-    }
+    // if (confirm('Are you sure you want to delete this user?')) {
+    this.userService.deleteUser(userId).subscribe({
+      next: (response) => {
+        alert('User Deleted');
+        this.loadUsers();
+        console.log('User deleted successfully');
+      },
+      error: (err) => {
+        console.error('Error deleting user:', err);
+      }
+    });
+    // }
+  }
+
+  getUserImage(userId: string) {
+    this.userService.getUserImage(userId).subscribe({
+      next: (res) => {
+        this.userImage = res.image?.url;
+      },
+      error: (err) => {
+        console.log("Error Fetching User ProfileImage: ", err);
+      }
+    })
   }
 
 
@@ -91,8 +117,56 @@ export class UsersComponent {
     this.addInviteModal = false;
   }
 
+  onUserAdded() {
+    this.closeAddInviteModal();
+    this.loadUsers();
+  }
+
   closeFilterModal() {
     this.filterModal = false;
+  }
+
+  openEditUserModal(user: any): void {
+    this.editUser = user;
+  }
+
+  closeEditUserModal(): void {
+    this.editUser = null;
+  }
+
+  onUserUpdated() {
+    this.closeEditUserModal();
+    this.loadUsers();
+  }
+
+  openDeleteUserModal(userId: string): void {
+    this.deleteUserId = userId;
+  }
+
+  closeDeleteUserModal() {
+    this.deleteUserId = null;
+  }
+
+  onUserDeleted() {
+    this.closeDeleteUserModal();
+    this.loadUsers();
+  }
+
+  toggleSettingsDropdown() {
+    this.settingsDropdownVisible = !this.settingsDropdownVisible;
+  }
+
+  logout(){
+    localStorage.removeItem('user_data');
+    this.router.navigate(['/login']);
+  }
+
+  openChangePasswordModal() {
+    this.changePasswordModal = true;
+  }
+
+  closeChangePasswordModal() {
+    this.changePasswordModal = false;
   }
 
 }

@@ -10,6 +10,10 @@ import { UsersComponent } from './users/users.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { InviteUserComponent } from './invite-user/invite-user.component';
 import { FilterComponent } from './filter/filter.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { CommonModule } from '@angular/common';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -19,11 +23,15 @@ import { FilterComponent } from './filter/filter.component';
     UserDetailsComponent,
     InviteUserComponent,
     FilterComponent,
+    EditUserComponent,
+    DeleteUserComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     ReactiveFormsModule,
     HttpClientModule,
     BrowserModule,
+    CommonModule,
     FormsModule,
     AppRoutingModule
   ],

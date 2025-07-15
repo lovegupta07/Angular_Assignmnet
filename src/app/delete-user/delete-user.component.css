@@ -22,14 +22,7 @@
   color: black;
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-}
-
+ 
 .checkbox-container {
   display: flex;
   align-items: center;
@@ -43,11 +36,14 @@
 }
 
 .btn {
+  margin: 20px;
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: bold;
   border: none;
   cursor: pointer;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn-primary, .btn-danger {
