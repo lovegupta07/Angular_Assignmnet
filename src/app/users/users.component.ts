@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { environment } from 'src/environments/environment';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-users',
@@ -28,7 +29,7 @@ export class UsersComponent {
   totalUsers: number = 0;
 
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService, private router: Router,private auth: AuthService) {
 
     const user = JSON.parse(localStorage.getItem('user_data') || '{}');
     this.userName = user.name || '';
@@ -46,6 +47,7 @@ export class UsersComponent {
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (res) => {
+        console.log("Fetched Users: ", res);
         this.users = res?.responseData || [];
         this.totalUsers = res?.pagination_details?.total_records || 0;
       },
@@ -58,15 +60,28 @@ export class UsersComponent {
   // Search users from the API
   searchUsers(): void {
     this.userService.searchUsers(this.searchText, this.sortField, this.sortOrder).subscribe({
-      next: (res:any) => {
+      next: (res: any) => {
         this.users = res?.responseData || [];
         this.totalUsers = res?.pagination_details?.total_records || 0;
       },
-      error: (error:any) => {
+      error: (error: any) => {
         console.log("Error Fetching Users: ", error);
       }
     });
   }
+
+  sortBy(field: string): void {
+    if (this.sortField === field) {
+      // Toggle sort order
+      this.sortOrder = this.sortOrder === 'ASC' ? 'DESC' : 'ASC';
+    } else {
+      this.sortField = field;
+      this.sortOrder = 'ASC'; // Default when changing field
+    }
+    
+    this.searchUsers();
+  }
+
 
   // Search functionality for filtering users
   onSearch(): void {
@@ -156,9 +171,9 @@ export class UsersComponent {
     this.settingsDropdownVisible = !this.settingsDropdownVisible;
   }
 
-  logout(){
-    localStorage.removeItem('user_data');
-    this.router.navigate(['/login']);
+  logout(): void {
+    console.log('Logging out...');
+    this.auth.logoutFromServer();
   }
 
   openChangePasswordModal() {
@@ -167,6 +182,24 @@ export class UsersComponent {
 
   closeChangePasswordModal() {
     this.changePasswordModal = false;
+  }
+  confirmDelete(userId: string): void {
+    this.deleteUserId = userId;  // Show confirmation modal
+  }
+
+  confirmDeleteUser(): void {
+    if (this.deleteUserId) {
+      this.userService.deleteUser(this.deleteUserId).subscribe({
+        next: (response) => {
+          alert('User Deleted');
+          this.loadUsers();
+          this.closeDeleteUserModal();  // Close modal after deletion
+        },
+        error: (err) => {
+          console.error('Error deleting user:', err);
+        }
+      });
+    }
   }
 
 }

@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 export class DeleteUserComponent implements OnInit {
   @Input() deleteUserId!: string;
   @Output() userDeleted = new EventEmitter<void>();
+  @Output() cancel = new EventEmitter<void>();
 
   name: string = '';
   email: string = '';
@@ -20,18 +21,20 @@ export class DeleteUserComponent implements OnInit {
  
   }
 
-  deleteUser() {
-    console.log("Deleting user", this.name, this.email, this.usertype);
+  confirmDelete() {
+  this.userService.deleteUser(this.deleteUserId).subscribe({
+    next: () => {
+      alert('User Deleted Successfully');
+      this.userDeleted.emit();
+    },
+    error: (err) => {
+      console.log("Error Deleting the User", err);
+    }
+  });
+}
 
-    this.userService.deleteUser(this.deleteUserId).subscribe({
-      next: (res) => {
-        alert('User Deleted Successsfully');
-        this.userDeleted.emit();
-      },
-      error: (err) => {
-        console.log("Error Deleting the User");
-      }
-    });
-  }
+cancelDelete() {
+  this.cancel.emit(); // Notify parent to close the modal
+}
 
 }

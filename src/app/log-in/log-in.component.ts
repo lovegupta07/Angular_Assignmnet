@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
     if (!this.emailInvalid && !this.passwordInvalid) {
       const clientId = uuidv4();
-      this.authService.login(this.email, this.password, clientId).subscribe({
+      this.authService.login(this.email, this.password).subscribe({
         next: () => {
           
           this.router.navigateByUrl('/dashboard');

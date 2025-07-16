@@ -105,10 +105,15 @@
         <button class="btn btn-light btn-lg" data-bs-toggle="dropdown">
           <i class="bi bi-blockquote-right"></i>
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <li><a class="dropdown-item" href="#">Name</a></li>
-          <li><a class="dropdown-item" href="#">Create Date</a></li>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="dropdown-item" (click)="sortBy('name')">Sort by Name</a>
+          </li>
+          <li>
+            <a class="dropdown-item" (click)="sortBy('create_date')">Sort by Create Date</a>
+          </li>
         </ul>
+
       </div>
 
       <!-- Filter Modal  -->
@@ -159,8 +164,9 @@
                   <i class="bi bi-three-dots-vertical"></i>
                 </button>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item-dot" (click)="openDeleteUserModal(user._id)"><i
-                        class="bi bi-trash me-2"></i>Delete</a></li>
+                  <li><a class="dropdown-item-dot" (click)="confirmDelete(user._id)">
+                      <i class="bi bi-trash me-2"></i>Delete
+                    </a></li>
                   <li><a class="dropdown-item-dot" role="button" (click)="openEditUserModal(user)"><i
                         class="bi bi-pencil me-2"></i>Edit</a></li>
                 </ul>
@@ -181,6 +187,7 @@
   <!-- Delete User Modal -->
   <div class="delete-user-backdrop" *ngIf="deleteUserId" (click)="closeDeleteUserModal()">
     <div class="delete-user-content" (click)="$event.stopPropagation()">
-      <app-delete-user [deleteUserId]="deleteUserId" (userDeleted)="onUserDeleted()"></app-delete-user>
+      <app-delete-user [deleteUserId]="deleteUserId" (userDeleted)="onUserDeleted()" (cancel)="closeDeleteUserModal()">
+      </app-delete-user>
     </div>
   </div>

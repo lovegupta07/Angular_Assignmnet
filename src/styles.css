@@ -1,1 +1,99 @@
 /* You can add global styles to this file, and also import other style files */
+/* ✅ Modal Backdrops (Common across components) */
+.invite-user-backdrop,
+.delete-user-backdrop,
+.changePassword-backdrop {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ✅ Modal Content Boxes */
+.invite-user-content,
+.delete-user-content,
+.changePassword-content {
+  background-color: #fff;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ Dropdown styles */
+.dropdown-item {
+  color: red;
+}
+.dropdown-item:hover {
+  cursor: pointer;
+  background-color: #f2f2f2d2;
+}
+
+.dropdown-menu {
+  padding-left: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-item-dot {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+.dropdown-item-dot:hover {
+  background-color: #f2f2f2d2;
+  color: #FF544C;
+}
+
+/* ✅ Settings icon & dropdown */
+.settings-icon-wrapper {
+  position: fixed;
+  left: 15px;
+  bottom: 15px;
+  width: 90px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  background-color: white;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.sidebar.collapsed ~ .settings-icon-wrapper {
+  width: 85px;
+}
+
+.settings-icon-wrapper i {
+  font-size: 20px;
+  color: #1c2d50;
+}
+
+.settings-dropdown-box {
+  position: fixed;
+  bottom: 70px;
+  left: 0;
+  width: 220px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 200;
+  border-radius: 6px;
+  padding: 8px 0;
+}
+
+.settings-dropdown-box .dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1c2d50;
+}
+.settings-dropdown-box .dropdown-item:hover {
+  background-color: #f2f2f2;
+}

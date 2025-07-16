@@ -21,10 +21,7 @@ export class UserService {
 
     const url = `${environment.SERVER_URL}/user/query`;
     const body: any = {
-      sorting_details: {
-        sort_order: sortOrder,
-        sort_by: sortField
-      }
+      pagination_details: {}
     };
 
     if (searchText) {

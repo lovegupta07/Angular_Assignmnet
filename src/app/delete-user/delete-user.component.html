@@ -2,9 +2,9 @@
   <div class="invite-user-header">
     <h2>Are you sure you want to delete User?</h2>
   </div>
-  <form (ngSubmit)="deleteUser()">
-    <div class="form-actions">
-      <button type="submit" class="btn btn-danger">Delete</button>
-    </div>
-  </form>
+  <div class="form-actions justify-content-center">
+  <button class="btn btn-danger" (click)="confirmDelete()">Yes</button>
+  <button class="btn btn-secondary" (click)="cancelDelete()">No</button>
+</div>
+
 </div>

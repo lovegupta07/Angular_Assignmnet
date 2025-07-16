@@ -30,7 +30,7 @@ export class EditUserComponent implements OnInit {
     console.log('isAdmin value:', this.isAdmin); 
     const payload = {
       name: this.name,
-      role: this.isAdmin ? 'ADMIN' : 'USER',
+      role: this.isAdmin ? 'ADMIN' : 'SALES',
     };
 
     this.userService.updateUser(this.user._id, payload).subscribe({
