@@ -4,10 +4,9 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
+  // styles:['h1{background:black}']
 })
+
 export class AppComponent {
-  title = 'frontend';
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('x-auth-token');
-  }
+   
 }

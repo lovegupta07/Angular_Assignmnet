@@ -1,0 +1,29 @@
+<div class="filter-panel-backdrop" (click)="closeFilter()">
+  <div class="filter-panel" (click)="$event.stopPropagation()">
+    <div class="filter-header">
+      <span>Filters</span>
+      <span class="close-icon" (click)="closeFilter()">✕</span>
+    </div>
+
+    <div class="filter-body">
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" [(ngModel)]="selectedRole">
+          <option value="" disabled selected>Select Role</option>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Create Date</label>
+        <div class="date-range">
+          <input type="date" [(ngModel)]="fromDate" />
+          <span class="arrow">→</span>
+          <input type="date" [(ngModel)]="toDate" />
+        </div>
+      </div>
+
+      <button class="apply-btn" (click)="applyFilter()">Apply Filter</button>
+    </div>
+  </div>
+</div>

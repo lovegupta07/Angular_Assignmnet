@@ -1,0 +1,30 @@
+<div class="custom-user-card">
+  <div class="custom-user-header">
+    <h2>Edit User</h2>
+  </div>
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" type="text" class="form-control" [(ngModel)]="name" name="name" />
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" type="email" class="form-control" [(ngModel)]="email" [readonly]="true" name="email" />
+    </div>
+
+    <div class="form-group">
+      <label>Usertype</label>
+      <label>
+        <input type="radio" [(ngModel)]="isAdmin" [value]="true" name="usertype" />Admin
+      </label>
+      <label>
+        <input type="radio" [(ngModel)]="isAdmin" [value]="false" name="usertype" />SALES
+      </label>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="button" class="btn red-btn" (click)="onUpdateUser()">Update User</button>
+    </div>
+  </form>
+</div>

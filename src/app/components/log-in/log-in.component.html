@@ -1,0 +1,58 @@
+<div class="main">
+
+  <div class="container">
+
+    <div class="left-panel">
+      <img src="../../../assets/images/Group 11163.svg" alt="Login Illustration" />
+    </div>
+
+    <div class="right-panel">
+      <div class="login-box">
+        <h1>PROJECT NAME</h1>
+        <p>Welcome Back! Please Login To Your Account.</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <input type="email" id="email" placeholder="Email" formControlName="email" autofocus />
+            <div *ngIf="email?.invalid && email?.touched" class="error-text">
+              Invalid email.
+            </div>
+          </div>
+
+          <div class="form-group password-group">
+            <input [type]="passwordVisible ? 'text' : 'password'" id="password" placeholder="Password"
+              formControlName="password" class="password-input" />
+
+            <!-- Eye Icon for Password Visibility -->
+            <span class="toggle-password" (click)="togglePasswordVisibility()">
+              <i [ngClass]="passwordVisible ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </span>
+          </div>
+
+          <div *ngIf="errorMessage" class="error-text">{{ errorMessage }}</div>
+
+          <div class="form-options">
+            <label><input type="checkbox" /> Remember Me</label>
+            <a type="button" (click)="forgotPassword()">Forgot Password</a>
+          </div>
+
+          <div class="form-buttons">
+            <button type="submit" class="login-btn" [disabled]="loginForm.invalid">Login</button>
+            <button type="button" class="signup-btn">Sign Up</button>
+          </div>
+        </form>
+
+        <!-- Show user info if logged in -->
+        <div *ngIf="isLoggedIn">
+          <h1>Welcome, {{userFirstName}}!</h1>
+        </div>
+
+      </div>
+      <div class="footer-links">
+        <a href="#">Term Of Use</a> • <a href="#">Privacy Policy</a>
+      </div>
+    </div>
+
+  </div>
+  
+</div>

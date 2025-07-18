@@ -1,0 +1,7 @@
+.main {
+    color: #FF544C;
+    font-weight: bold;
+    margin-top: 30px;
+    display: flex;
+    justify-content:flex-start;
+}

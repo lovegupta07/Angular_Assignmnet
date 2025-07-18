@@ -1,0 +1,77 @@
+.custom-user-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.custom-user-header {
+  background-color: #FF544C;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+  border-bottom: 1px solid #FF544C;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 20px;
+}
+
+.form-group label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-control {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+  font-size: 14px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #FF544C;
+  background-color: #fff;
+}
+
+.custom-checkbox {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+.red-btn {
+  background-color: #FF544C;
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.red-btn:hover {
+  background-color: #e1443c;
+}
+
+

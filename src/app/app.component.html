@@ -1,9 +1,14 @@
-<ng-container *ngIf="isLoggedIn(); else loginOnly">
-  <div class="main-content">
-    <router-outlet></router-outlet>
-  </div>
-</ng-container>
+<!-- <h1>Hii</h1>
+<h1>{{2+4}}</h1>
+<P>{{X==Y}}</P> -->
 
-<ng-template #loginOnly>
-  <router-outlet></router-outlet>
-</ng-template>
+<!-- <button (click) = "handleClickEvent()">Click Me</button> -->
+<!-- <button (click) = "otherFun()">Click Me</button> -->
+
+<nav>
+    <a routerLink="/"></a>
+</nav>
+
+<!-- <app-login></app-login> -->
+
+<router-outlet></router-outlet>

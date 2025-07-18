@@ -1,0 +1,109 @@
+<div class="content flex-grow-1 p-2">
+    <!-- Topbar -->
+    <div class="d-flex align-items-center mb-3 flex-wrap gap-2">
+        <div class="d-flex position-relative">
+            <input type="text" class="form-control w-auto" placeholder="Search.." (input)="searchUsers()"
+                [(ngModel)]="searchText" />
+            <i class="bi bi-search position-absolute top-50 end-0 p-2 translate-middle-y"></i>
+        </div>
+
+
+        <!-- Sort Dropdown -->
+        <div class="dropdown">
+            <button class="btn btn-light btn-lg" data-bs-toggle="dropdown">
+                <i class="bi bi-filter" (click)="filterModal=true"></i>
+            </button>
+        </div>
+
+        <div class="dropdown">
+            <button class="btn btn-light btn-lg" data-bs-toggle="dropdown">
+                <i class="bi bi-blockquote-right"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li><a class="dropdown-item" href="#">Name</a></li>
+                <li><a class="dropdown-item" href="#">Create Date</a></li>
+            </ul>
+        </div>
+
+        <!-- Filter Modal  -->
+        <div class="filter-backdrop" *ngIf="filterModal" (click)="closeFilterModal()">
+            <div class="filter-content" (click)="$event.stopPropagation()">
+                <app-filter (close)="closeFilterModal()"></app-filter>
+            </div>
+        </div>
+
+
+
+        <div class="ms-auto d-flex gap-2">
+            <button class="btn" [ngStyle]="{ 'background-color': '#FF544C', color: 'white' }">Org. Roles</button>
+            <button class="btn" [ngStyle]="{ 'background-color': '#FF544C', color: 'white' }"
+                (click)="openAddInviteModal()">Invite User</button>
+        </div>
+    </div>
+
+
+    <!-- Table -->
+    <div class="table-responsive">
+        <table class="table text-center align-middle">
+            <thead>
+                <tr>
+                    <th style="background-color: #FF544C; color: white;">Name</th>
+                    <th style="background-color: #FF544C; color: white;">Email</th>
+                    <th style="background-color: #FF544C; color: white;">Role</th>
+                    <th style="background-color: #FF544C; color: white;">Mobile</th>
+                    <th style="background-color: #FF544C; color: white;">Create Date</th>
+                    <th style="background-color: #FF544C; color: white;">Status</th>
+                    <th style="background-color: #FF544C; color: white;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>
+                        {{userImage}} {{ user.name }}
+                    </td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>{{ user.mobile?.mobile_number}}</td>
+                    <!-- <td>{{ user.create_date | date:'dd/MM/yyyy, h:mm a' }}</td> -->
+                    <td>{{ user.create_date | date}}</td>
+                    <td>{{ user.status }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-light" data-bs-toggle="dropdown">
+                                <i class="bi bi-three-dots-vertical"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item-dot" (click)="openDeleteUserModal(user._id)"><i
+                                            class="bi bi-trash me-2"></i>Delete</a></li>
+                                <li><a class="dropdown-item-dot" role="button" (click)="openEditUserModal(user)"><i
+                                            class="bi bi-pencil me-2"></i>Edit</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<!-- Add User Modal (Invite User) -->
+<div class="invite-user-backdrop" *ngIf="addInviteModal" (click)="closeAddInviteModal()">
+    <div class="invite-user-content" (click)="$event.stopPropagation()">
+        <app-invite-user (userAddedAndNext)="onUserAddedAndNext()" (userAdded)="onUserAdded()"></app-invite-user>
+    </div>
+</div>
+
+<!-- Edit User Modal -->
+<div class="invite-user-backdrop" *ngIf="editUser" (click)="closeEditUserModal()">
+    <div class="invite-user-content" (click)="$event.stopPropagation()">
+        <app-edit-user [user]="editUser" (userUpdated)="onUserUpdated()"></app-edit-user>
+    </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="delete-user-backdrop" *ngIf="deleteUserId" (click)="closeDeleteUserModal()">
+    <div class="delete-user-content" (click)="$event.stopPropagation()">
+        <app-delete-user [deleteUserId]="deleteUserId" (userDeleted)="onUserDeleted()"></app-delete-user>
+    </div>
+</div>

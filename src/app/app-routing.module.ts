@@ -1,28 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './log-in/log-in.component';
-import { AuthGuard } from './auth.guard';
-import { UsersComponent } from './users/users.component';
-import { FilterComponent } from './filter/filter.component';
-
+import { LogInComponent } from 'src/app/components/log-in/log-in.component';
+import { AuthGuard } from './auth/auth.guard';
+import { UsersComponent } from './components/users/users.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { InviteUserComponent } from './components/invite-user/invite-user.component';
+import { UserlistComponent } from './components/userlist/userlist.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'login', component: LogInComponent },
   {
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    children: [
-      { path: '', redirectTo: 'users', pathMatch: 'full' },
-      { path: 'users', component: UsersComponent },
-      { path: 'welcome', canActivate: [AuthGuard], component: UsersComponent },
-      { path: 'aa', component: FilterComponent }
+    path: 'users', canActivate: [AuthGuard], component: UsersComponent, children: [
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },   
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'user-list', component: UserlistComponent },
+      { path: 'add-user', component: InviteUserComponent }
     ]
-  }
+  },
+  { path: '**', redirectTo: '/login' } 
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

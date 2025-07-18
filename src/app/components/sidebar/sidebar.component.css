@@ -1,0 +1,280 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 180px;
+  background: white;
+  z-index: 10;
+  transition: width 0.3s ease;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  border-right: 1px solid #eee;
+}
+
+.sidebar.collapsed {
+  width: 85px;
+}
+
+
+/* Logo + Toggle */
+.logo-toggle {
+  background-color: #FF544C;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  position: relative;
+}
+
+.logo {
+  font-size: 28px;
+  color: white;
+  margin-left: auto;
+  margin-right: 38px;
+}
+
+/* Toggle Button Design */
+.toggle-btn {
+  position: absolute;
+  right: -14px;
+  top: 88%;
+  transform: translateY(-50%);
+  background: white;
+  border: 1px solid white;
+  color: #FF544C;
+  font-size: 16px;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Box */
+.profile-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 15px;
+  width: 100%;
+}
+
+.profile-img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-name {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.profile-role {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Collapsed Sidebar Profile */
+.sidebar.collapsed .profile-box {
+  justify-content: center;
+  padding: 15px 0;
+}
+
+.sidebar.collapsed .profile-info {
+  display: none;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+  width: 100%;
+}
+
+.sidebar-menu .nav-item {
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.sidebar-menu .nav-item:last-child {
+  border-bottom: none;
+}
+
+.sidebar-menu .sidebar-item {
+  color: #1c2d50;
+  cursor: pointer;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu .sidebar-item:hover {
+  background-color: #f6f6f6;
+  border-radius: 5px;
+  color: #FF544C;
+}
+
+.sidebar-menu .sidebar-item i {
+  color: #1c2d50;
+  width: 20px;
+  font-size: 18px;
+}
+
+/* Hide text in collapsed sidebar */
+.sidebar.collapsed .sidebar-item {
+  justify-content: center;
+}
+
+.sidebar.collapsed .sidebar-item span {
+  display: none;
+}
+
+.user-details-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.user-details-content {
+  background: white;
+  padding: 20px;
+  width: 900px;
+  border-radius: 10px;
+  position: relative;
+  height: 520px;
+} 
+
+.filter-backdrop {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  z-index: 10000;
+}
+
+
+.delete-user-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.delete-user-content {
+  background-color: #fff;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.changePassword-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.changePassword-content {
+  background-color: #fff;
+  border-radius: 10px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}                                                                             
+
+
+.dropdown-item {
+  color : red;
+}
+
+.dropdown-menu {
+  padding-left: 6px;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropdown-item-dot {
+  color : black;
+  text-decoration: none;  
+}
+
+.settings-icon-wrapper {
+  position: fixed;
+  left: 20px;
+  bottom: 15px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  background-color: white;
+  border-top: 1px solid #eee;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.sidebar.collapsed ~ .settings-icon-wrapper {
+  width: 85px;
+}
+
+.settings-icon-wrapper i {
+  font-size: 20px;
+  color: #1c2d50;
+}
+
+/* Dropdown below settings icon */
+.settings-dropdown-box {
+  position: fixed;
+  bottom: 70px;
+  left: 0;
+  width: 220px;
+  background-color: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 200;
+  border-radius: 6px;
+  padding: 8px 0;
+}
+
+.settings-dropdown-box .dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1c2d50;
+}
+
+.settings-dropdown-box .dropdown-item:hover {
+  background-color: #f2f2f2;
+}
